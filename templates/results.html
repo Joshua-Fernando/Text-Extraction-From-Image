@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Text Recognition Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Text Recognition Results</h1>
+
+    <div class="results-grid">
+        <div class="result-card">
+            <h2>Original Image</h2>
+            <img src="{{ url_for('static', filename='uploads/' + original_image) }}">
+        </div>
+
+        {% if results.text_lines %}
+        <div class="result-card">
+            <h2>Recognized Text</h2>
+            <ul>
+                {% for line in results.text_lines %}
+                <li>{{ line }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        {% if results.lines_image %}
+        <div class="result-card">
+            <h2>Annotated Lines</h2>
+            <img src="{{ url_for('static', filename='annotated/' + results.lines_image) }}">
+        </div>
+        {% endif %}
+        
+        {% if results.words_image %}
+        <div class="result-card">
+            <h2>Annotated Words</h2>
+            <img src="{{ url_for('static', filename='annotated/' + results.words_image) }}">
+        </div>
+        {% endif %}
+
+        {% if results.error %}
+        <div class="result-card">
+            <h2>An Error Occurred</h2>
+            <p>{{ results.error }}</p>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="footer-link">
+        <a href="/" class="button-link">Read Another Image</a>
+    </div>
+</body>
+</html>
